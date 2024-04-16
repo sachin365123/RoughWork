@@ -1,0 +1,11 @@
+Business Intelligence Academy promotes continued learning & make interested folks' part of our Enterprise level BI team. Creating backend in SQL: Preparing the data, ETL, SQL servers, creating database, Visualization in power bi: Suitable graphs, filters, slicers, bookmarks, format pane elements
+Distribution of power bi dashboard & report: Publish the report as App, creating
+interactive dashboards, managing workspace & accesses to the reports &
+datasets, permissions, subscriptions, alerts. Hands On Experience:
+Client Reporting: exposure to small projects &
+models source as excel, SharePoint, OneDrive be the
+source and 4-5 reports with 5 pages covering tools
+like Power BI Excel SharePoint.
+Enterprise BI Reporting: with small model experience
+show your expertise on huge data models with SQL
+servers & databases
