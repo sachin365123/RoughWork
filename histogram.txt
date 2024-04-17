@@ -1,0 +1,72 @@
+# Import libraries
+import numpy as np
+from scipy.stats import skew
+import seaborn as sns
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Your data
+data = dataset['Sales']
+
+# Set Seaborn style
+sns.set(style="whitegrid")
+
+# Define bin edges
+bin_edges = np.arange(data.min(), data.max() + 10, 10)
+bin_width = bin_edges[1] - bin_edges[0]
+
+# Create a histogram using Seaborn with custom bins
+fig, ax = plt.subplots(figsize=(25, 6))  # Set the figure size and get the axis
+
+hist = sns.histplot(data, kde=True, color='green', bins=bin_edges, ax=ax)
+
+# Set x-axis label fontsize
+ax.set_xlabel('Sales', fontsize=40)
+
+# Set y-axis label fontsize
+ax.set_ylabel('Count', fontsize=40)
+
+plt.ylabel('Count',fontsize=22)
+plt.xlabel('Sales',fontsize=22)
+
+# Calculate skewness
+skewness = skew(data)
+
+# Calculate mean, median, and mode
+mean_value = np.mean(data)
+median_value = np.median(data)
+mode_value = data.mode().values[0]
+
+# Label skewness
+if skewness > 0:
+    plt.text(plt.xlim()[1], plt.ylim()[1], f'\n\n\n\n\nPositive Skewness ({skewness:.2f})', ha='right', va='top',fontsize=25)
+elif skewness < 0:
+    plt.text(plt.xlim()[1], plt.ylim()[1], f'\n\n\n\n\nNegative Skewness ({skewness:.2f})', ha='right', va='top',fontsize=25)
+else:
+    plt.text(plt.xlim()[1], plt.ylim()[1], f'\n\n\n\n\nSymmetric Distribution ({skewness:.2f})', ha='right', va='top',fontsize=25)
+
+# Add vertical bars for mean, median, and mode
+plt.axvline(mean_value, color='red', linestyle='--', label=f'Mean ({mean_value:.2f})', linewidth=2)
+plt.axvline(median_value, color='blue', linestyle='--', label=f'Median ({median_value:.2f})', linewidth=2)
+plt.axvline(mode_value, color='purple', linestyle='--', label=f'Mode ({mode_value:.2f})', linewidth=2)
+
+# Annotate the bars with data point counts
+for bar in hist.patches:
+    height = bar.get_height()
+    plt.annotate(f'{int(height)}', (bar.get_x() + bar.get_width() / 2, height), ha='center', va='bottom',fontsize=25)
+
+# Manually calculate midpoints of the bars
+midpoints = bin_edges[:-1] + bin_width / 2
+
+# Set x-axis tick positions and labels
+plt.xticks(midpoints, [f'{int(bin_edges[i])} - {int(bin_edges[i+1]) - 1}' for i in range(len(bin_edges) - 1)])
+
+plt.legend()
+
+# Set x-axis and y-axis tick label font size
+ax.tick_params(axis='x', labelsize=22)
+ax.tick_params(axis='y', labelsize=22)
+# Use tight_layout to remove extra white space
+plt.tight_layout()
+plt.legend(fontsize=22)
+plt.show()
