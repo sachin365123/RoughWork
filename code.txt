@@ -58,6 +58,15 @@ plt.axvline(mode_value, color='purple', linestyle='--', label=f'Mode ({mode_valu
 plt.text(plt.xlim()[1], plt.ylim()[1], f'Mean: {mean_value:.2f}\nMedian: {median_value:.2f}\nMode: {mode_value:.2f}',
          ha='right', va='top', fontsize=20)
 
+
+# Get the counts for each bin
+counts, _ = np.histogram(data, bins=[0, 20, 40, 60, 80, 100])
+
+# Write counts on top of each bar
+for i, count in enumerate(counts):
+    plt.text(bin_centers[i], count, str(count), ha='center', va='bottom', fontsize=12)
+
+
 # display histogram
 plt.show()
 
