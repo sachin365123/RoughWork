@@ -4,3 +4,38 @@ When determining the number of bins for your histogram, follow these steps to en
 Step 1: Calculate the Square Root of the Total Number of Data Points
 Step 2: Choose the Bin Width by Dividing the Data Range by the Number of Bins
 Step 3: Round Up to a Whole Number to Determine the Final Number of Bins
+
+import pandas as pd
+import numpy as np
+import math
+# Read the dataset from Excel
+# df = pd.read_excel('your_dataset.xlsx')
+# Drop rows with null values in the 'FCR %' column
+
+df=pd.read_excel('/content/sample_data/Book1.xlsx')
+df.dropna(subset=['FCR %'], inplace=True)
+
+# Count the number of data points
+num_data_points = len(df)
+
+# Calculate the square root
+square_root = np.sqrt(num_data_points)
+
+print("Square root of the total number of data points:", square_root)
+final_num_bins = math.ceil(square_root)
+print(final_num_bins)
+
+
+# Calculate the range of the data
+data_range = max(df['FCR %']) - min(df['FCR %'])
+
+# Number of bins (you can adjust this as needed)
+num_bins = final_num_bins
+
+# Calculate the bin width
+bin_width = data_range / num_bins
+
+# Round up to a whole number
+final_num_bins = math.ceil(data_range / bin_width)
+
+print("Final number of bins:", final_num_bins)
