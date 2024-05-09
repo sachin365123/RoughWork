@@ -1,0 +1,6 @@
+[7:26 PM] Sayed Asim
+Steps to Calculate Bins for Your Histogram
+When determining the number of bins for your histogram, follow these steps to ensure an effective representation of your data:
+Step 1: Calculate the Square Root of the Total Number of Data Points
+Step 2: Choose the Bin Width by Dividing the Data Range by the Number of Bins
+Step 3: Round Up to a Whole Number to Determine the Final Number of Bins
