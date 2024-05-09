@@ -39,3 +39,101 @@ bin_width = data_range / num_bins
 final_num_bins = math.ceil(data_range / bin_width)
 
 print("Final number of bins:", final_num_bins)
+
+
+
+# The following code to create a dataframe and remove duplicated rows is always executed and acts as a preamble for your script: 
+
+# dataset = pandas.DataFrame(Marks)
+# dataset = dataset.drop_duplicates()
+
+# Paste or type your script code here:
+# Import libraries
+
+import pandas as pd
+from scipy.stats import skew
+import matplotlib.pyplot as plt
+import seaborn as sns
+import numpy as np
+import math
+# Your data
+data = dataset[['EmployeeID_YM','FCR %']]
+
+# create histogram with specific bin sizes
+data_min=data['FCR %'].min()
+data_max=data['FCR %'].max()
+
+data.dropna(subset=['FCR %'], inplace=True)
+
+# Count the number of data points
+num_data_points = len(data)
+
+# Calculate the square root
+square_root = np.sqrt(num_data_points)
+
+# print("Square root of the total number of data points:", square_root)
+num_bins = math.ceil(square_root)
+# print(final_num_bins)
+
+data_range = max(data['FCR %']) - min(data['FCR %'])
+
+
+# Calculate the bin width
+bin_width = data_range / num_bins
+
+# Round up to a whole number
+
+bins=np.arange(data_min, data_max+bin_width, bin_width )
+bins=list(bins)
+
+# Calculate the positions of ticks at the middle of each bin
+bin_centers = [bin_edge + bin_width / 2 for bin_edge in bins]
+
+# set custom labels for x ticks at the center of each bin
+var=[str(float(round(i,2)))+'-'+ str(float(round(i+bin_width-0.01,2)))  for i in bins]
+
+# plot histogram with custom bins label
+sns.histplot(data=data['FCR %'], x=data['FCR %'], kde=True, color='green', bins=bins, line_kws={'color': 'black', 'lw': 2})
+plt.xticks(bin_centers, var)
+
+# add labels and title
+plt.xlabel('Value')
+plt.ylabel('Frequency')
+plt.title('Histogram')
+
+# Calculate skewness
+skewness = skew(data['FCR %'].dropna())
+
+# Calculate mean, median, and mode
+mean_value = np.nanmean(data['FCR %'])
+median_value = np.nanmedian(data['FCR %'])
+mode_value = data['FCR %'].mode().values[0]
+
+# Label skewness
+if skewness > 0:
+    plt.text(plt.xlim()[1], plt.ylim()[1], f'\n\n\n\n\nPositive Skewness ({skewness:.2f})', ha='right', va='top',fontsize=12)
+elif skewness < 0:
+    plt.text(plt.xlim()[1], plt.ylim()[1], f'\n\n\n\n\nNegative Skewness ({skewness:.2f})', ha='right', va='top',fontsize=12)
+else:
+    plt.text(plt.xlim()[1], plt.ylim()[1], f'\n\n\n\n\nSymmetric Distribution ({skewness:.2f})', ha='right', va='top',fontsize=12)
+
+# Add vertical bars for mean, median, and mode
+plt.axvline(mean_value, color='red', linestyle='--', label=f'Mean ({mean_value:.2f})', linewidth=2)
+plt.axvline(median_value, color='blue', linestyle='--', label=f'Median ({median_value:.2f})', linewidth=2)
+plt.axvline(mode_value, color='purple', linestyle='--', label=f'Mode ({mode_value:.2f})', linewidth=2)
+
+
+# Display mean, median, and mode values at the top right corner of the graph
+plt.text(plt.xlim()[1], plt.ylim()[1], f'Mean: {mean_value:.2f}\nMedian: {median_value:.2f}\nMode: {mode_value:.2f}',
+         ha='right', va='top', fontsize=12)
+
+# Get the counts for each bin
+counts, _ = np.histogram(data['FCR %'], bins=bins)
+
+# Write counts on top of each bar
+for i, count in enumerate(counts):
+    plt.text(bin_centers[i], count, str(count), ha='center', va='bottom', fontsize=18)
+
+
+# display histogram
+plt.show()
