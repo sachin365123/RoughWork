@@ -1,0 +1,1 @@
+First and foremost, I extend my gratitude to God. I am also deeply thankful to Sayed Asim Sir and Amarjeet Sir for placing their trust in me and providing me with this opportunity. Additionally, I appreciate the supportive and positive work environment of this company, which enabled me to successfully complete my higher studies.
